@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  app: &app_base
+    build:
+      context: ./rails
+      dockerfile: ./Dockerfile
+      args:
+        - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    command: bundle exec unicorn -p 3000 -c /app/config/unicorn.rb
+    environment:
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+    volumes:
+      - /var/tmp
+      - ./rails:/app
+      - /app/tmp
+      - /app/log
+      - /app/.git
+      - /app/vendor
+      - /node_modules
+      - bundle-data:/usr/local/bundle
+    ports:
+      - '3000:3000'
+    depends_on:
+      - 'db'
+    links:
+      - db
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: db
+    ports:
+      - '5432:5432'
+    volumes:
+      - /var/lib/postgresql/data
+volumes:
+  bundle-data:

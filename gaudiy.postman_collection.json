@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "e825ce12-1694-4ca6-b867-637c35008304",
+		"name": "gaudiy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "mutations",
+			"item": [
+				{
+					"name": "addCoins",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation addCoins ($input: AddCoinsInput!) {\n    addCoins (input: $input) {\n        transaction {\n            amount\n            createdAt\n            id\n            updatedAt\n            sender {\n                id\n                balance\n            }\n            receiver {\n                id\n                balance\n            }\n        }\n    }\n}",
+								"variables": "{\n  \"input\": {\n    \"userId\": \"\",\n    \"amount\": 10\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consumeCoins",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation consumeCoins ($input: ConsumeCoinsInput!) {\n    consumeCoins (input: $input) {\n        clientMutationId\n        transaction {\n            amount\n            createdAt\n            id\n            updatedAt\n            sender {\n                id\n                balance\n            }\n            receiver {\n                id\n                balance\n            }\n        }\n    }\n}",
+								"variables": "{\n  \"input\": {\n    \"userId\": \"\",\n    \"amount\": 1\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sendCoins",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation sendCoins ($input: SendCoinsInput!) {\n    sendCoins (input: $input) {\n        transaction {\n            amount\n            createdAt\n            id\n            updatedAt\n            sender {\n                id\n                balance\n            }\n            receiver {\n                id\n                balance\n            }\n        }\n    }\n}",
+								"variables": "{\n  \"input\": {\n    \"senderId\": \"\",\n    \"receiverId\": \"\",\n    \"amount\": 10\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation signup ($input: SignupInput!) {\n    signup (input: $input) {\n        user {\n            balance\n            createdAt\n            id\n            name\n            updatedAt\n        }\n    }\n}",
+								"variables": "{\n  \"input\": {\n    \"name\": \"name2\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "queries",
+			"item": [
+				{
+					"name": "transactionsByUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query transactionsByUser ($userId: ID!, $after: String, $before: String, $first: Int, $last: Int) {\n    transactionsByUser (userId: $userId, after: $after, before: $before, first: $first, last: $last) {\n        edges {\n            cursor\n            node {\n                id\n                sender {\n                    id\n                    name\n                }\n                receiver {\n                    id\n                    name\n                }\n                amount\n                createdAt\n            }\n        }\n        \n        pageInfo {\n            endCursor\n            hasNextPage\n            hasPreviousPage\n            startCursor\n        }\n    }\n}",
+								"variables": "{\n  \"userId\": \"9a590fb8-b63d-4849-bca7-4c2bd86e5bc0\",\n  \"after\": null,\n  \"before\": null,\n  \"first\": 10,\n  \"last\": null\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query user ($userId: ID!) {\n    user (userId: $userId) {\n        balance\n        createdAt\n        id\n        name\n        updatedAt\n    }\n}",
+								"variables": "{\n  \"userId\": \"9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:3000/graphql"
+		}
+	]
+}

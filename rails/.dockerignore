@@ -1,0 +1,9 @@
+.env
+/config/master.key
+/tmp
+/spec
+/Documents
+.rubocop_todo.yml
+.rubocop.yml
+README.md
+/public/uploads

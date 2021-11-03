@@ -1,0 +1,118 @@
+inherit_from: .rubocop_todo.yml
+
+# no check file lists
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+    - 'bin/*'
+    - 'config/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+
+# environments
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+
+# for rails
+require:
+  - rubocop-rails
+
+Rails:
+  Enabled: true
+
+# check params
+Metrics/BlockLength:
+  Max: 50
+  Exclude:
+    - 'spec/graphql/queries/**/*'
+    - 'spec/**/*'
+
+Metrics/MethodLength:
+  Max: 25
+  Exclude:
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - 'app/interactors/create_daily_balance_yesterday.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+
+Metrics/PerceivedComplexity:
+  Exclude:
+
+Metrics/ParameterLists:
+  Max: 10
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+# do not use these checks
+Style/Documentation:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'Gemfile'
+    - 'Rakefile'
+
+Style/AsciiComments:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Max: 107
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/ClassLength:
+  Exclude:
+
+Lint/UnusedMethodArgument:
+  Exclude:
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/graphql/loaders/association_loader.rb'
+    - 'app/graphql/loaders/record_loader.rb'
+    - 'app/queries/**/**'
+
+Layout/LineLength:
+  Max: 159
+  Exclude:
+    - 'db/fixtures/*'
+
+Naming/PredicateName:
+  Exclude:
+
+# Offense count: 2
+# Configuration parameters: Include.
+# Include: app/models/**/*.rb
+Rails/UniqueValidationWithoutIndex:
+  Exclude:
+
+Rails/SkipsModelValidations:
+  AllowedMethods:
+    - update_all
+    - insert_all
+    - insert_all!
+
+Rails/RakeEnvironment:
+  Exclude:
+
+Naming/AccessorMethodName:
+  Exclude:
